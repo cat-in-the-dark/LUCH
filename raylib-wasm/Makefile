@@ -5,12 +5,12 @@ all: reload build
 
 .PHONY: reload
 reload:
-	emcmake cmake -Bcmake-build-web -DPLATFORM=Web
+	emcmake cmake -Bbuild -DPLATFORM=Web
 
 .PHONY: build
 build: reload
-	cmake --build cmake-build-web -j 4
+	cmake --build build -j 4
 
 .PHONY: clean
 clean:
-	rm -rf cmake-build-web
+	rm -rf build
