@@ -1,0 +1,36 @@
+{
+  "name": "@luch/raylib-wasm",
+  "version": "0.0.1",
+  "license": "MIT",
+  "exports": "./mod.ts",
+  "publish": {
+    "include": [
+      "mod.ts",
+      "build/raylibjs.wasm",
+      "build/raylibjs.js",
+      "build/raylibjs.d.ts"
+    ],
+    "exclude": [
+      "vendor/",
+      "CMakeLists.txt",
+      "Makefile"
+    ]
+  },
+  "fmt": {
+    "include": ["mod.ts"]
+  },
+  "lint": {
+    "include": ["mod.ts"],
+    "rules": {
+      "tags": ["recommended"]
+    }
+  },
+  "compilerOptions": {
+    "lib": [
+      "ES2020",
+      "dom",
+      "dom.iterable",
+      "dom.asynciterable"
+    ]
+  }
+}
