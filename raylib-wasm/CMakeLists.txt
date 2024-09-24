@@ -31,7 +31,7 @@ set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
 add_definitions(-DPLATFORM_WEB)
 add_definitions(-DUSE_WASM)
 
-set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "--bind --no-entry --emit-tsd raylibjs.d.ts -sEXPORT_ES6=1 -sEXPORT_KEEPALIVE=1 -sEXPORTED_RUNTIME_METHODS=FS -Os -s ASSERTIONS=1 -s ALLOW_MEMORY_GROWTH=1 --no-heap-copy -s GL_ENABLE_GET_PROC_ADDRESS -s USE_GLFW=3")
+set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "--bind --no-entry --emit-tsd raylibjs.d.ts -sEXPORT_ES6=1 -sENVIRONMENT=web -sEXPORT_KEEPALIVE=1 -sEXPORTED_RUNTIME_METHODS=FS -Os -s ASSERTIONS=1 -s ALLOW_MEMORY_GROWTH=1 --no-heap-copy -s GL_ENABLE_GET_PROC_ADDRESS -s USE_GLFW=3")
 
 add_subdirectory(${THIRDPARTY_DIR}/raylib)
 target_include_directories(${PROJECT_NAME} PRIVATE src)

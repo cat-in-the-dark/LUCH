@@ -1,6 +1,9 @@
 // @ts-types="./build/raylibjs.d.ts"
 import initModule, { type MainModule } from "./build/raylibjs.js";
 
+// @ts-types="./build/raylibjs.d.ts"
+export type * from "./build/raylibjs.js";
+
 /**
  * Initialize Raylib bindings: canvas, wasm.
  *
