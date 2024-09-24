@@ -1,0 +1,23 @@
+{
+  "name": "@luch/raylib-wasm",
+  "version": "0.0.1",
+  "description": "Raylib bindings in WASM for browser javascript",
+  "module": "./build/raylibjs.js",
+  "types": "./build/raylibjs.d.ts",
+  "files": [
+    "./build/raylibjs.wasm"
+  ],
+  "scripts": {
+    "build": "make"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cat-in-the-dark/LUCH.git"
+  },
+  "author": "CAT_IN_THE_DARK Team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cat-in-the-dark/LUCH/issues"
+  },
+  "homepage": "https://github.com/cat-in-the-dark/LUCH#readme"
+}
