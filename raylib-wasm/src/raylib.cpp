@@ -229,7 +229,7 @@ EMSCRIPTEN_BINDINGS(raylib) {
   value_object<Vector3>("Vector3")
       .field("x", &Vector3::x)
       .field("y", &Vector3::y)
-      .field("x", &Vector3::z);
+      .field("z", &Vector3::z);
 
   value_object<Camera2D>("Camera2D")
       .field("offset", &Camera2D::offset)
