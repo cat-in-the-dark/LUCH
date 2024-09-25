@@ -1,0 +1,24 @@
+{
+  "name": "@luch/root",
+  "version": "0.0.1",
+  "private": true,
+  "engines": {
+    "node": ">=18.20",
+    "pnpm": ">=9"
+  },
+  "scripts": {
+    "postinstall": "manypkg check",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@eslint/js": "^9.11.1",
+    "@luch/tsconfig": "workspace:*",
+    "@manypkg/cli": "^0.21.4",
+    "@stylistic/eslint-plugin": "^2.8.0",
+    "@types/eslint__js": "^8.42.3",
+    "eslint": "^9.11.1",
+    "typescript": "5.5.4",
+    "typescript-eslint": "^8.7.0"
+  },
+  "packageManager": "pnpm@9.11.0+sha512.0a203ffaed5a3f63242cd064c8fb5892366c103e328079318f78062f24ea8c9d50bc6a47aa3567cabefd824d170e78fa2745ed1f16b132e16436146b7688f19b"
+}

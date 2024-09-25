@@ -1,0 +1,27 @@
+{
+  "name": "@luch/raylib-wasm",
+  "version": "0.0.2",
+  "description": "Package with WASM bindings for raylib generated via `emscripten/bind.h`.",
+  "scripts": {
+    "build": "tsup"
+  },
+  "devDependencies": {
+    "@luch/tsconfig": "workspace:*",
+    "tsup": "^8.2.4",
+    "typescript": "5.5.4"
+  },
+  "author": "",
+  "license": "MIT",
+  "module": "build/mod.js",
+  "files": [
+    "build/raylibjs.wasm"
+  ],
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./build/mod.d.mts",
+        "default": "./build/mod.mjs"
+      }
+    }
+  }
+}

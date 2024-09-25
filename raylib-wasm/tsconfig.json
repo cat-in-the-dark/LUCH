@@ -1,0 +1,14 @@
+{
+  "extends": "@luch/tsconfig/base.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json",
+    "lib": ["DOM", "ES2023"],
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "rootDir": "./",
+    "outDir": "./build"
+  },
+  "include": ["mod.ts"],
+  "exclude": ["node_modules"]
+}

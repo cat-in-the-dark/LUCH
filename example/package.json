@@ -9,10 +9,11 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "typescript": "^5.5.3",
-    "vite": "^5.4.1"
+    "@luch/tsconfig": "workspace:*",
+    "typescript": "5.5.4",
+    "vite": "^5.4.8"
   },
   "dependencies": {
-    "@luch/raylib-wasm": "npm:@jsr/luch__raylib-wasm@^0.0.2"
+    "@luch/raylib-wasm": "workspace:*"
   }
 }
