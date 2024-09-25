@@ -1,5 +1,5 @@
 {
-  "name": "@luch/root",
+  "name": "@cat_in_the_dark/root",
   "version": "0.0.1",
   "private": true,
   "engines": {
@@ -11,8 +11,8 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@cat_in_the_dark/tsconfig": "workspace:*",
     "@eslint/js": "^9.11.1",
-    "@luch/tsconfig": "workspace:*",
     "@manypkg/cli": "^0.21.4",
     "@stylistic/eslint-plugin": "^2.8.0",
     "@types/eslint__js": "^8.42.3",

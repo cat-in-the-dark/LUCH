@@ -1,5 +1,5 @@
 {
-  "name": "example",
+  "name": "@cat_in_the_dark/example",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,11 +9,11 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@luch/tsconfig": "workspace:*",
+    "@cat_in_the_dark/tsconfig": "workspace:*",
     "typescript": "5.5.4",
     "vite": "^5.4.8"
   },
   "dependencies": {
-    "@luch/raylib-wasm": "workspace:*"
+    "@cat_in_the_dark/raylib-wasm": "workspace:*"
   }
 }

@@ -11,7 +11,7 @@ importers:
       '@eslint/js':
         specifier: ^9.11.1
         version: 9.11.1
-      '@luch/tsconfig':
+      '@cat_in_the_dark/tsconfig':
         specifier: workspace:*
         version: link:tools/tsconfig
       '@manypkg/cli':
@@ -35,11 +35,11 @@ importers:
 
   example:
     dependencies:
-      '@luch/raylib-wasm':
+      '@cat_in_the_dark/raylib-wasm':
         specifier: workspace:*
         version: link:../raylib-wasm
     devDependencies:
-      '@luch/tsconfig':
+      '@cat_in_the_dark/tsconfig':
         specifier: workspace:*
         version: link:../tools/tsconfig
       typescript:
@@ -51,7 +51,7 @@ importers:
 
   raylib-wasm:
     devDependencies:
-      '@luch/tsconfig':
+      '@cat_in_the_dark/tsconfig':
         specifier: workspace:*
         version: link:../tools/tsconfig
       tsup:

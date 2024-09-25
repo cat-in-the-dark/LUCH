@@ -1,12 +1,12 @@
 {
-  "name": "@luch/raylib-wasm",
+  "name": "@cat_in_the_dark/raylib-wasm",
   "version": "0.0.2",
   "description": "Package with WASM bindings for raylib generated via `emscripten/bind.h`.",
   "scripts": {
     "build": "tsup"
   },
   "devDependencies": {
-    "@luch/tsconfig": "workspace:*",
+    "@cat_in_the_dark/tsconfig": "workspace:*",
     "tsup": "^8.2.4",
     "typescript": "5.5.4"
   },

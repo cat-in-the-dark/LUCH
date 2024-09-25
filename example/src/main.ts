@@ -1,5 +1,5 @@
 import './style.css';
-import { Raylib } from '@luch/raylib-wasm';
+import { Raylib } from '@cat_in_the_dark/raylib-wasm';
 
 const canvas = document.getElementById('game') as HTMLCanvasElement;
 
