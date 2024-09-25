@@ -10,7 +10,7 @@ async function main(rl: Raylib) {
   const logo = await rl.loadTexture('logo.png');
   const pos = { x: 100, y: 120 };
 
-  const userUpdate = (_timeStamp: DOMHighResTimeStamp) => {
+  const update = () => {
     if (rl.isKeyDown(65)) {
       pos.x -= 5;
     }
@@ -24,18 +24,14 @@ async function main(rl: Raylib) {
       pos.y += 5;
     }
 
-    rl.beginDrawing();
-    rl.clearBackground(rl.PINK);
-    logo.draw(pos);
-    rl.drawFPS(10, 10);
-    rl.endDrawing();
+    rl.drawing(() => {
+      rl.clearBackground(rl.PINK);
+      logo.draw(pos);
+      rl.drawFPS(10, 10);
+    });
   };
 
-  const updateLoop = (timeStamp: DOMHighResTimeStamp) => {
-    userUpdate(timeStamp);
-    requestAnimationFrame(updateLoop);
-  };
-  updateLoop(1);
+  rl.runLoop(update);
 }
 
 Raylib.init({ canvas }).then(main).catch(err => console.error(err));

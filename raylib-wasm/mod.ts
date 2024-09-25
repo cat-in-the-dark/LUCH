@@ -37,6 +37,14 @@ export class Raylib {
     return new Raylib(mod);
   }
 
+  runLoop(updateFn: (rl: Raylib) => unknown) {
+    const updateLoop = () => {
+      requestAnimationFrame(updateLoop);
+      updateFn(this);
+    };
+    updateLoop();
+  }
+
   initWindow(width: number, height: number, title: string) {
     this.mod.InitWindow(width, height, title);
   }
@@ -53,6 +61,16 @@ export class Raylib {
     this.mod.EndDrawing();
   }
 
+  /**
+   * Call fn between beginDrawing - endDrawing.
+   * @param fn
+   */
+  drawing(fn: () => unknown) {
+    this.beginDrawing();
+    fn();
+    this.endDrawing();
+  }
+
   clearBackground(color: Color) {
     this.mod.ClearBackground(color);
   }
@@ -64,6 +82,8 @@ export class Raylib {
   isKeyDown(key: number) {
     return this.mod.IsKeyDown(key);
   }
+
+  get frameTime() { return this.mod.GetFrameTime(); }
 
   /**
    * Load texture from file into GPU memory (VRAM)

@@ -253,4 +253,6 @@ EMSCRIPTEN_BINDINGS(raylib) {
   function("IsKeyDown", &IsKeyDown);
   function("IsKeyReleased", &IsKeyReleased);
   function("IsKeyUp", &IsKeyUp);
+
+  function("GetFrameTime", &GetFrameTime);
 }
