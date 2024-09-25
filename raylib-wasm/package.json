@@ -1,20 +1,30 @@
 {
   "name": "@cat_in_the_dark/raylib-wasm",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Package with WASM bindings for raylib generated via `emscripten/bind.h`.",
   "scripts": {
     "build": "tsup"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cat-in-the-dark/LUCH"
+  },
+  "bugs": {
+    "url": "https://github.com/cat-in-the-dark/LUCH/issues"
   },
   "devDependencies": {
     "@cat_in_the_dark/tsconfig": "workspace:*",
     "tsup": "^8.2.4",
     "typescript": "5.5.4"
   },
-  "author": "",
+  "keywords": ["game", "gamedev", "WebGL", "WASM", "typescript"],
+  "author": "CAT_IN_THE_DARK Team",
   "license": "MIT",
   "module": "build/mod.js",
   "files": [
-    "build/raylibjs.wasm"
+    "build/raylibjs.wasm",
+    "build/mod.d.mts",
+    "build/mod.mjs"
   ],
   "exports": {
     ".": {
