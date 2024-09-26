@@ -1,8 +1,37 @@
 // @ts-types="./build/raylibjs.d.ts"
-import initModule, { type Vector2, type Color, type MainModule, type Texture2D as NativeTexture } from './build/raylibjs.js';
+import initModule, { type Vector2, type MainModule, type Texture2D as NativeTexture, type Rectangle, type NPatchInfo, Vector3, Vector4 } from './build/raylibjs.js';
 
 // @ts-types="./build/raylibjs.d.ts"
-export { type Color, type Vector2 } from './build/raylibjs.js';
+export { type Vector2 } from './build/raylibjs.js';
+
+class Context {
+  private _rl: Raylib | undefined = undefined;
+
+  init(rl: Raylib) {
+    if (this._rl) {
+      throw new Error('Context already initialized');
+    }
+    this._rl = rl;
+  }
+
+  get rl(): Raylib {
+    if (!this._rl) {
+      throw new Error('Context is not initialized');
+    }
+
+    return this._rl;
+  }
+
+  get mod(): MainModule {
+    if (!this._rl) {
+      throw new Error('Context is not initialized');
+    }
+
+    return this._rl.mod;
+  }
+}
+
+export const ctx = new Context();
 
 async function addFile(mod: MainModule, filename: string, target?: string) {
   if (!target) {
@@ -34,7 +63,9 @@ export class Raylib {
    */
   static async init(options: { canvas: HTMLCanvasElement }) {
     const mod = await initModule(options);
-    return new Raylib(mod);
+    const rl = new Raylib(mod);
+    ctx.init(rl);
+    return rl;
   }
 
   runLoop(updateFn: (rl: Raylib) => unknown) {
@@ -95,39 +126,138 @@ export class Raylib {
     return new Texture(this.mod.LoadTexture(path), this);
   }
 
-  get LIGHTGRAY() { return this.mod.LIGHTGRAY; }
-  get GRAY() { return this.mod.GRAY; }
-  get DARKGRAY() { return this.mod.DARKGRAY; }
-  get YELLOW() { return this.mod.YELLOW; }
-  get GOLD() { return this.mod.GOLD; }
-  get ORANGE() { return this.mod.ORANGE; }
-  get PINK() { return this.mod.PINK; }
-  get RED() { return this.mod.RED; }
-  get MAROON() { return this.mod.MAROON; }
-  get GREEN() { return this.mod.GREEN; }
-  get LIME() { return this.mod.LIME; }
-  get DARKGREEN() { return this.mod.DARKGREEN; }
-  get SKYBLUE() { return this.mod.SKYBLUE; }
-  get BLUE() { return this.mod.BLUE; }
-  get DARKBLUE() { return this.mod.DARKBLUE; }
-  get PURPLE() { return this.mod.PURPLE; }
-  get VIOLET() { return this.mod.VIOLET; }
-  get DARKPURPLE() { return this.mod.DARKPURPLE; }
-  get BEIGE() { return this.mod.BEIGE; }
-  get BROWN() { return this.mod.BROWN; }
-  get DARKBROWN() { return this.mod.DARKBROWN; }
-  get WHITE() { return this.mod.WHITE; }
-  get BLACK() { return this.mod.BLACK; }
-  get BLANK() { return this.mod.BLANK; }
-  get MAGENTA() { return this.mod.MAGENTA; }
-  get RAYWHITE() { return this.mod.RAYWHITE; }
+  get LIGHTGRAY() { return Color.fromNative(this.mod.LIGHTGRAY); }
+  get GRAY() { return Color.fromNative(this.mod.GRAY); }
+  get DARKGRAY() { return Color.fromNative(this.mod.DARKGRAY); }
+  get YELLOW() { return Color.fromNative(this.mod.YELLOW); }
+  get GOLD() { return Color.fromNative(this.mod.GOLD); }
+  get ORANGE() { return Color.fromNative(this.mod.ORANGE); }
+  get PINK() { return Color.fromNative(this.mod.PINK); }
+  get RED() { return Color.fromNative(this.mod.RED); }
+  get MAROON() { return Color.fromNative(this.mod.MAROON); }
+  get GREEN() { return Color.fromNative(this.mod.GREEN); }
+  get LIME() { return Color.fromNative(this.mod.LIME); }
+  get DARKGREEN() { return Color.fromNative(this.mod.DARKGREEN); }
+  get SKYBLUE() { return Color.fromNative(this.mod.SKYBLUE); }
+  get BLUE() { return Color.fromNative(this.mod.BLUE); }
+  get DARKBLUE() { return Color.fromNative(this.mod.DARKBLUE); }
+  get PURPLE() { return Color.fromNative(this.mod.PURPLE); }
+  get VIOLET() { return Color.fromNative(this.mod.VIOLET); }
+  get DARKPURPLE() { return Color.fromNative(this.mod.DARKPURPLE); }
+  get BEIGE() { return Color.fromNative(this.mod.BEIGE); }
+  get BROWN() { return Color.fromNative(this.mod.BROWN); }
+  get DARKBROWN() { return Color.fromNative(this.mod.DARKBROWN); }
+  get WHITE() { return Color.fromNative(this.mod.WHITE); }
+  get BLACK() { return Color.fromNative(this.mod.BLACK); }
+  get BLANK() { return Color.fromNative(this.mod.BLANK); }
+  get MAGENTA() { return Color.fromNative(this.mod.MAGENTA); }
+  get RAYWHITE() { return Color.fromNative(this.mod.RAYWHITE); }
+}
+
+export class Color {
+  constructor(
+    public r: number,
+    public g: number,
+    public b: number,
+    public a = 255,
+  ) {}
+
+  static fromNative(native: { r: number; g: number; b: number; a: number }) {
+    return new Color(native.r, native.g, native.b, native.a);
+  }
+
+  native() {
+    return { r: this.r & 0xFF, g: this.g & 0xFF, b: this.b & 0xFF, a: this.a & 0xFF };
+  }
+
+  /**
+   * Get color with alpha applied, alpha goes from 0.0f to 1.0f
+   * @param alpha
+   */
+  fade(alpha: number) {
+    return Color.fromNative(ctx.mod.Fade(this, alpha));
+  }
+
+  /**
+   * Get color multiplied with another color
+   * @param color
+   */
+  tint(color: Color) {
+    return Color.fromNative(ctx.mod.ColorTint(this, color));
+  }
+
+  brightness(factor: number) {
+    return Color.fromNative(ctx.mod.ColorBrightness(this, factor));
+  }
+
+  contrast(factor: number) {
+    return Color.fromNative(ctx.mod.ColorContrast(this, factor));
+  }
+
+  /**
+   * Get hexadecimal value for a Color
+   */
+  get hex() {
+    return ctx.mod.ColorToInt(this);
+  }
+
+  static fromHex(hex: number) {
+    return Color.fromNative(ctx.mod.GetColor(hex));
+  }
+
+  get normalized() {
+    return ctx.mod.ColorNormalize(this);
+  }
+
+  static fromNormalized(vec: Vector4) {
+    return Color.fromNative(ctx.mod.ColorFromNormalized(vec));
+  }
+
+  get hsv() {
+    return ctx.mod.ColorToHSV(this);
+  }
+
+  static fromHSV(hsv: Vector3) {
+    return Color.fromNative(ctx.mod.ColorFromHSV(hsv.x, hsv.y, hsv.z));
+  }
 }
 
 export class Texture {
   constructor(private readonly tex: NativeTexture, private readonly rl: Raylib) {}
 
-  draw(pos: Vector2, tint: Color = this.rl.WHITE) {
-    this.rl.mod.DrawTexture(this.tex, pos, tint);
+  /**
+   * Draw a texture with extended parameters
+   * @param pos
+   * @param rotation
+   * @param scale
+   * @param tint
+   */
+  draw(pos: Vector2, rotation = 0, scale = 1, tint: Color = this.rl.WHITE) {
+    this.rl.mod.DrawTextureEx(this.tex, pos, rotation, scale, tint);
+  }
+
+  /**
+   * Draw a part of a texture (defined by a rectangle) with 'pro' parameters
+   * @param source
+   * @param dest
+   * @param origin relative to destination rectangle size
+   * @param rotation
+   * @param tint
+   */
+  drawRec(source: Rectangle, dest: Rectangle, origin: Vector2, rotation = 0, tint: Color = this.rl.WHITE) {
+    this.rl.mod.DrawTexturePro(this.tex, source, dest, origin, rotation, tint);
+  }
+
+  /**
+   * Draws a texture (or part of it) that stretches or shrinks nicely using n-patch info
+   * @param nPatchInfo
+   * @param dest
+   * @param origin
+   * @param rotation
+   * @param tint
+   */
+  drawNPatch(nPatchInfo: NPatchInfo, dest: Rectangle, origin: Vector2, rotation = 0, tint: Color = this.rl.WHITE) {
+    this.rl.mod.DrawTextureNPatch(this.tex, nPatchInfo, dest, origin, rotation, tint);
   }
 
   get id() { return this.tex.id; }

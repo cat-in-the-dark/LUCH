@@ -6,20 +6,28 @@ Main idea is to provide almost entire raylib API for browser's js.
 
 Example:
 
-```js
-Module.InitWindow(320, 240, "game");
-Module.SetTargetFPS(60);
+```typescript
+import { Raylib } from '@cat_in_the_dark/raylib-wasm';
 
-const userUpdate = (timeStamp) => {
-  Module.BeginDrawing();
-    Module.ClearBackground(PINK);
-    Module.DrawFPS(10, 10);
-  Module.EndDrawing();
+const canvas = document.getElementById('game') as HTMLCanvasElement;
+
+async function main(rl: Raylib) {
+  rl.initWindow(320, 240, 'Hello');
+  rl.setTargetFPS(60);
+
+  const logo = await rl.loadTexture('logo.png');
+  const pos = { x: 100, y: 120 };
+
+  const update = () => {
+    rl.drawing(() => {
+      rl.clearBackground(rl.PINK);
+      logo.draw(pos);
+      rl.drawFPS(10, 10);
+    });
+  };
+
+  rl.runLoop(update);
 }
 
-const updateLoop = (timeStamp) => {
-  userUpdate(timeStamp)
-  requestAnimationFrame(updateLoop)
-}
-updateLoop(1, state)
+Raylib.init({ canvas }).then(main).catch(err => console.error(err));
 ```

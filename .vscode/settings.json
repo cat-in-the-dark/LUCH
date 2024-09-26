@@ -4,4 +4,9 @@
     "source.fixAll": "explicit"
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "files.associations": {
+    "*.jslib": "javascript",
+    "*.njk": "html",
+    "ios": "cpp"
+  },
 }

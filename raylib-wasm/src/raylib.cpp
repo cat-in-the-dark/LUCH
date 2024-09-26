@@ -222,6 +222,14 @@ EMSCRIPTEN_BINDINGS(raylib) {
       .field("width", &Rectangle::width)
       .field("height", &Rectangle::height);
 
+  value_object<NPatchInfo>("NPatchInfo")
+      .field("source", &NPatchInfo::source)
+      .field("left", &NPatchInfo::left)
+      .field("top", &NPatchInfo::top)
+      .field("right", &NPatchInfo::right)
+      .field("bottom", &NPatchInfo::bottom)
+      .field("layout", &NPatchInfo::layout);
+
   value_object<Vector2>("Vector2")
       .field("x", &Vector2::x)
       .field("y", &Vector2::y);
@@ -230,6 +238,12 @@ EMSCRIPTEN_BINDINGS(raylib) {
       .field("x", &Vector3::x)
       .field("y", &Vector3::y)
       .field("z", &Vector3::z);
+
+  value_object<Vector4>("Vector4")
+      .field("x", &Vector4::x)
+      .field("y", &Vector4::y)
+      .field("z", &Vector4::z)
+      .field("z", &Vector4::w);
 
   value_object<Camera2D>("Camera2D")
       .field("offset", &Camera2D::offset)
@@ -243,7 +257,9 @@ EMSCRIPTEN_BINDINGS(raylib) {
   function("BeginDrawing", &BeginDrawing);
   function("EndDrawing", &EndDrawing);
   function("LoadTexture", &_LoadTexture);
-  function("DrawTexture", &DrawTextureV);
+  function("DrawTextureEx", &DrawTextureEx);
+  function("DrawTexturePro", &DrawTexturePro);
+  function("DrawTextureNPatch", &DrawTextureNPatch);
   function("LoadSound", &_LoadSound);
   function("PlaySound", &_PlaySound);
   function("DrawFPS", &DrawFPS);
@@ -255,4 +271,17 @@ EMSCRIPTEN_BINDINGS(raylib) {
   function("IsKeyUp", &IsKeyUp);
 
   function("GetFrameTime", &GetFrameTime);
+
+  function("Fade", &Fade);
+  function("ColorToInt", &ColorToInt);
+  function("ColorNormalize", &ColorNormalize);
+  function("ColorFromNormalized", &ColorFromNormalized);
+  function("ColorToHSV", &ColorToHSV);
+  function("ColorFromHSV", &ColorFromHSV);
+  function("ColorTint", &ColorTint);
+  function("ColorBrightness", &ColorBrightness);
+  function("ColorContrast", &ColorContrast);
+  function("ColorAlpha", &ColorAlpha);
+  function("ColorAlphaBlend", &ColorAlphaBlend);
+  function("GetColor", &GetColor);
 }
