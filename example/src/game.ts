@@ -1,4 +1,5 @@
 import { ctx, Texture, Vector2 } from '@cat_in_the_dark/raylib-wasm';
+import { Raylib } from '@cat_in_the_dark/raylib-wasm';
 
 export function update(state: { logo: Texture; alpha: number; pos: Vector2 }) {
   const rl = ctx.rl;
@@ -23,4 +24,15 @@ export function update(state: { logo: Texture; alpha: number; pos: Vector2 }) {
     state.logo.draw(state.pos);
     rl.drawFPS(10, 10);
   });
+}
+
+async function main(rl: Raylib) {
+  rl.initWindow(320, 240, 'Hello');
+  rl.setTargetFPS(60);
+
+  const alpha = 1;
+  const pos = { x: 100, y: 120 };
+  const logo = await rl.loadTexture('logo.png');
+
+  rl.runLoop(() => update({ logo, alpha, pos }));
 }

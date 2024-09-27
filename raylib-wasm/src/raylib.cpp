@@ -29,6 +29,10 @@ Texture2D _LoadTexture(const std::string& path) {
   return LoadTexture(path.c_str());
 }
 
+void DrawText_(const std::string& text, Vector2 pos, int fontSize, Color color) {
+  return DrawText(text.c_str(), pos.x, pos.y, fontSize, color);
+}
+
 std::unordered_map<std::string, Sound> sounds;
 
 void _LoadSound(const std::string& path) {
@@ -284,4 +288,6 @@ EMSCRIPTEN_BINDINGS(raylib) {
   function("ColorAlpha", &ColorAlpha);
   function("ColorAlphaBlend", &ColorAlphaBlend);
   function("GetColor", &GetColor);
+
+  function("DrawText", &DrawText_);
 }

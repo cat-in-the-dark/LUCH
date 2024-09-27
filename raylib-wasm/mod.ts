@@ -110,6 +110,10 @@ export class Raylib {
     this.mod.DrawFPS(x, y);
   }
 
+  drawText(text: string, pos: Vector2, fontSize: number, color: Color) {
+    this.mod.DrawText(text, pos, fontSize, color);
+  }
+
   isKeyDown(key: number) {
     return this.mod.IsKeyDown(key);
   }
