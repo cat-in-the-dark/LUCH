@@ -8,12 +8,12 @@ importers:
 
   .:
     dependencies:
-      '@eslint/js':
-        specifier: ^9.11.1
-        version: 9.11.1
       '@cat_in_the_dark/tsconfig':
         specifier: workspace:*
         version: link:tools/tsconfig
+      '@eslint/js':
+        specifier: ^9.11.1
+        version: 9.11.1
       '@manypkg/cli':
         specifier: ^0.21.4
         version: 0.21.4
@@ -48,6 +48,18 @@ importers:
       vite:
         specifier: ^5.4.8
         version: 5.4.8
+
+  math:
+    devDependencies:
+      '@cat_in_the_dark/tsconfig':
+        specifier: workspace:*
+        version: link:../tools/tsconfig
+      tsup:
+        specifier: ^8.2.4
+        version: 8.3.0(postcss@8.4.47)(typescript@5.5.4)
+      typescript:
+        specifier: 5.5.4
+        version: 5.5.4
 
   raylib-wasm:
     devDependencies:

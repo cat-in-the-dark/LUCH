@@ -1,0 +1,4 @@
+{
+  "extends": "@cat_in_the_dark/tsconfig/base.json",
+  "include": ["src"]
+}

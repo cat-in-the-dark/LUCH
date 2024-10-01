@@ -2,3 +2,4 @@ packages:
   - tools/*
   - example
   - raylib-wasm
+  - math
