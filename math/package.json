@@ -18,16 +18,16 @@
     "typescript": "5.5.4"
   },
   "author": "CAT_IN_THE_DARK Team",
-  "module": "dist/mod.js",
+  "module": "dist/index.mjs",
   "files": [
-    "dist/mod.d.mts",
-    "dist/mod.mjs"
+    "dist/index.d.mts",
+    "dist/index.mjs"
   ],
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/mod.d.mts",
-        "default": "./dist/mod.mjs"
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
       }
     }
   }

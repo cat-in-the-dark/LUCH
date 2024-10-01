@@ -35,6 +35,9 @@ importers:
 
   example:
     dependencies:
+      '@cat_in_the_dark/math':
+        specifier: workspace:*
+        version: link:../math
       '@cat_in_the_dark/raylib-wasm':
         specifier: workspace:*
         version: link:../raylib-wasm

@@ -19,7 +19,13 @@
     "tsup": "^8.2.4",
     "typescript": "5.5.4"
   },
-  "keywords": ["game", "gamedev", "WebGL", "WASM", "typescript"],
+  "keywords": [
+    "game",
+    "gamedev",
+    "WebGL",
+    "WASM",
+    "typescript"
+  ],
   "author": "CAT_IN_THE_DARK Team",
   "license": "MIT",
   "module": "build/mod.js",

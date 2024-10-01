@@ -1,8 +1,5 @@
 // @ts-types="./build/raylibjs.d.ts"
-import initModule, { type Vector2, type MainModule, type Texture2D as NativeTexture, type Rectangle, type NPatchInfo, Vector3, Vector4 } from './build/raylibjs.js';
-
-// @ts-types="./build/raylibjs.d.ts"
-export { type Vector2 } from './build/raylibjs.js';
+import initModule, { type MainModule, type Vector2, type Texture2D as NativeTexture, type Rectangle, type NPatchInfo, Vector3, Vector4 } from './build/raylibjs.js';
 
 class Context {
   private _rl: Raylib | undefined = undefined;

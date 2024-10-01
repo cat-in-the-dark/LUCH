@@ -1,11 +1,7 @@
 {
   "extends": "@cat_in_the_dark/tsconfig/base.json",
   "compilerOptions": {
-    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json",
-    "lib": ["DOM", "ES2023"],
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "node",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "rootDir": "./",
     "outDir": "./build"
   },

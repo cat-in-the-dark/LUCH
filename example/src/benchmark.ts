@@ -1,9 +1,10 @@
-import { ctx, Texture, Vector2, Color, Raylib } from '@cat_in_the_dark/raylib-wasm';
+import { Vector2 } from '@cat_in_the_dark/math';
+import { ctx, Texture, Color, Raylib } from '@cat_in_the_dark/raylib-wasm';
 
 const screenWidth = 800;
 const screenHeight = 450;
 const MAX_BATCH_ELEMENTS = 8192;
-const textPos = { x: 120, y: 0 };
+const textPos = new Vector2(120, 0);
 
 class Bunny {
   constructor(
@@ -22,10 +23,10 @@ function spawnBunny(tex: Texture, pos: Vector2) {
   return new Bunny(
     tex,
     pos,
-    {
-      x: Math.random() * 8 - 4,
-      y: Math.random() * 8 - 4,
-    },
+    new Vector2(
+      Math.random() * 8 - 4,
+      Math.random() * 8 - 4,
+    ),
     new Color(
       Math.random() * 255,
       Math.random() * 255,
@@ -70,7 +71,7 @@ export async function runBenchmark(rl: Raylib) {
   const bunnies = new Array<Bunny>();
 
   for (let i = 0; i < MAX_BATCH_ELEMENTS; i++) {
-    bunnies.push(spawnBunny(tex, { x: 128, y: 128 }));
+    bunnies.push(spawnBunny(tex, new Vector2(128, 128)));
   }
 
   rl.runLoop(() => update({ bunnies }));
