@@ -3,6 +3,10 @@ import { floatEq, clamp, lerp } from './scalar';
 export class Vector2 {
   constructor(public x: number, public y: number) {}
 
+  clone(): Vector2 {
+    return new Vector2(this.x, this.y);
+  }
+
   static up(): Vector2 {
     return new Vector2(0, 1);
   }
@@ -31,8 +35,17 @@ export class Vector2 {
    * @returns random  uniform distributed unit vector.
    */
   static random(): Vector2 {
-    const angle = Math.random() * 2 * Math.PI;
-    return new Vector2(Math.cos(angle), Math.sin(angle));
+    const theta = Math.random() * 2 * Math.PI;
+    return Vector2.fromAngle(theta);
+  }
+
+  /**
+   * Makes a vector from an angle Theta. PI/2 points to the (0, -1) because y grows down.
+   * @param theta angle of the created vector.
+   * @returns
+   */
+  static fromAngle(theta: number) {
+    return new Vector2(Math.cos(theta), -Math.sin(theta));
   }
 
   add(rhs: Vector2): Vector2 {
@@ -80,7 +93,7 @@ export class Vector2 {
     return this.x * other.y - this.y * other.x;
   }
 
-  toArr(): [number, number] {
+  array(): [number, number] {
     return [this.x, this.y];
   }
 
@@ -89,6 +102,29 @@ export class Vector2 {
    */
   get magnitude(): number {
     return Math.sqrt(this.magnitudeSquared);
+  }
+
+  /**
+   * Scales vector to the magnitude.
+   * Makes vector unit and scale by magnitude.
+   * @param magnitude
+   */
+  scaleTo(magnitude: number): void {
+    this.normalize();
+    this.x *= magnitude;
+    this.y *= magnitude;
+  }
+
+  /**
+   * Return a scaled vector to the magnitude.
+   * @see Vector2.scaleTo
+   * @param magnitude
+   * @returns
+   */
+  scaledTo(magnitude: number): Vector2 {
+    const v = this.clone();
+    v.scaleTo(magnitude);
+    return v;
   }
 
   get magnitudeSquared(): number {
@@ -110,6 +146,29 @@ export class Vector2 {
     const l = this.magnitude;
     this.x /= l;
     this.y /= l;
+  }
+
+  /**
+   * Clamps each axis between min and max.
+   * @param min
+   * @param max
+   */
+  clamp(min: number, max: number): void {
+    this.x = clamp(this.x, min, max);
+    this.y = clamp(this.y, min, max);
+  }
+
+  /**
+   * Clamps each axis between min and max.
+   * @see Vector2.clamp
+   * @param min
+   * @param max
+   * @returns a clamped vector
+   */
+  clamped(min: number, max: number): Vector2 {
+    const v = this.clone();
+    v.clamp(min, max);
+    return v;
   }
 
   /**
@@ -149,6 +208,14 @@ export class Vector2 {
   }
 
   /**
+   * Get the heading direction of the vector.
+   * @returns
+   */
+  heading(): number {
+    return -Math.atan2(this.y, this.x);
+  }
+
+  /**
    * Returns the signed angle between this and other in radians.
    * @param other
    * @returns
@@ -162,6 +229,23 @@ export class Vector2 {
     const c = this.dot(other);
 
     return Math.atan2(s, c);
+  }
+
+  /**
+   * Rotate a vector clockwise by a certain number of radians
+   * @param theta angle in radians
+   */
+  rotate(theta: number): void {
+    const s = Math.sin(theta);
+    const c = Math.cos(theta);
+    this.x = c * this.x + s * this.y;
+    this.y = -s * this.x + c * this.y;
+  }
+
+  rotated(theta: number): Vector2 {
+    const v = this.clone();
+    v.rotate(theta);
+    return v;
   }
 
   distanceTo(other: Vector2): number {
