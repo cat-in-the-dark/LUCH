@@ -61,6 +61,47 @@ void _PlaySound(const std::string& path) {
   }
 }
 
+void _StopSound(const std::string& path) {
+  if (sounds.count(path)) {
+    StopSound(sounds.at(path));
+  } else {
+    TraceLog(LOG_ERROR, "Sound %s is not loaded", path.c_str());
+  }
+}
+
+void _PauseSound(const std::string& path) {
+  if (sounds.count(path)) {
+    PauseSound(sounds.at(path));
+  } else {
+    TraceLog(LOG_ERROR, "Sound %s is not loaded", path.c_str());
+  }
+}
+
+void _ResumeSound(const std::string& path) {
+  if (sounds.count(path)) {
+    ResumeSound(sounds.at(path));
+  } else {
+    TraceLog(LOG_ERROR, "Sound %s is not loaded", path.c_str());
+  }
+}
+
+bool _IsSoundPlaying(const std::string& path) {
+  if (sounds.count(path)) {
+    return IsSoundPlaying(sounds.at(path));
+  } else {
+    TraceLog(LOG_ERROR, "Sound %s is not loaded", path.c_str());
+  }
+  return false;
+}
+
+void _SetSoundVolume(const std::string& path, float volume) {
+  if (sounds.count(path)) {
+    SetSoundVolume(sounds.at(path), volume);
+  } else {
+    TraceLog(LOG_ERROR, "Sound %s is not loaded", path.c_str());
+  }
+}
+
 static Rectangle GetPixelPerferLayout(int cw, int ch) {
   float sw = GetScreenWidth();
   float sh = GetScreenHeight();
@@ -306,11 +347,17 @@ EMSCRIPTEN_BINDINGS(raylib) {
   function("LoadTexture", &_LoadTexture);
   function("DrawTextureEx", &DrawTextureEx);
   function("DrawTexturePro", &DrawTexturePro);
-  function("DrawTextureNPatch", &DrawTextureNPatch);
-  function("LoadSound", &_LoadSound);
-  function("PlaySound", &_PlaySound);
+  function("DrawTextureNPatch", &DrawTextureNPatch); 
   function("DrawFPS", &DrawFPS);
   function("SetTargetFPS", &SetTargetFPS);
+
+  function("LoadSound", &_LoadSound);
+  function("PlaySound", &_PlaySound);
+  function("StopSound", &_StopSound);
+  function("PauseSound", &_PauseSound);
+  function("ResumeSound", &_ResumeSound);
+  function("IsSoundPlaying", &_IsSoundPlaying);
+  function("SetSoundVolume", &_SetSoundVolume);
 
   function("IsKeyPressed", &IsKeyPressed);
   function("IsKeyDown", &IsKeyDown);

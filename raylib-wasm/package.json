@@ -1,6 +1,6 @@
 {
   "name": "@cat_in_the_dark/raylib-wasm",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Package with WASM bindings for raylib generated via `emscripten/bind.h`.",
   "scripts": {
     "build:wasm": "emcmake cmake -Bbuild -DPLATFORM=Web && cmake --build build -j 4",

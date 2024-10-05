@@ -344,6 +344,26 @@ export class Sound {
   play() {
     this.rl.mod.PlaySound(this.path);
   }
+
+  stop() {
+    this.rl.mod.StopSound(this.path);
+  }
+
+  pause() {
+    this.rl.mod.PauseSound(this.path);
+  }
+
+  resume() {
+    this.rl.mod.ResumeSound(this.path);
+  }
+
+  set volume(v: number) {
+    this.rl.mod.SetSoundVolume(this.path, v);
+  }
+
+  get isPlaying(): boolean {
+    return this.rl.mod.IsSoundPlaying(this.path);
+  }
 }
 
 export class Camera {
