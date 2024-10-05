@@ -1,6 +1,6 @@
 {
   "name": "@cat_in_the_dark/math",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Math library for LUCH engine",
   "scripts": {
     "build": "tsup"
