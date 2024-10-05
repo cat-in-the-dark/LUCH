@@ -231,6 +231,11 @@ EMSCRIPTEN_BINDINGS(raylib) {
       .field("mipmaps", &Texture::mipmaps)
       .field("format", &Texture::format);
 
+  value_object<RenderTexture2D>("RenderTexture2D")
+      .field("id", &RenderTexture2D::id)
+      .field("texture", &RenderTexture2D::texture)
+      .field("depth", &RenderTexture2D::depth);
+
   value_object<Color>("Color")
       .field("r", &Color::r)
       .field("g", &Color::g)
@@ -309,4 +314,9 @@ EMSCRIPTEN_BINDINGS(raylib) {
   function("LoadFont", &_LoadFont);
   function("DrawText", &_DrawText);
   function("DrawTextPro", &_DrawTextPro);
+
+  function("LoadRenderTexture", &LoadRenderTexture);
+  function("UnloadRenderTexture", &UnloadRenderTexture);
+  function("BeginTextureMode", &BeginTextureMode);
+  function("EndTextureMode", &EndTextureMode);
 }

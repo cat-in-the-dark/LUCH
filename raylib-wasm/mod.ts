@@ -1,5 +1,5 @@
 // @ts-types="./build/raylibjs.d.ts"
-import initModule, { type MainModule, type Vector2, type Texture2D as NativeTexture, type Rectangle, type NPatchInfo, Vector3, Vector4 } from './build/raylibjs.js';
+import initModule, { type MainModule, type Vector2, type Texture2D as NativeTexture, type RenderTexture2D as NativeRenderTexture2D, type Rectangle, type NPatchInfo, Vector3, Vector4 } from './build/raylibjs.js';
 
 const zeroVec2 = { x: 0, y: 0 };
 
@@ -130,6 +130,10 @@ export class Raylib {
   async loadTexture(path: string) {
     await addFile(this.mod, path, path);
     return new Texture(this.mod.LoadTexture(path), this);
+  }
+
+  loadRenderTexture(width: number, height: number) {
+    return new RenderTexture(this.mod.LoadRenderTexture(width, height), this);
   }
 
   async loadFont(path: string): Promise<Font> {
@@ -283,6 +287,28 @@ export class Texture {
   get height() { return this.tex.height; }
   get mipmaps() { return this.tex.mipmaps; }
   get format() { return this.tex.format; }
+}
+
+export class RenderTexture {
+  constructor(private readonly tex: NativeRenderTexture2D, private readonly rl: Raylib) {}
+
+  beginDrawing() {
+    this.rl.mod.BeginTextureMode(this.tex);
+  }
+
+  endDrawing() {
+    this.rl.mod.EndDrawing();
+  }
+
+  /**
+   * Call fn between beginDrawing - endDrawing.
+   * @param fn
+   */
+  drawing(fn: () => unknown) {
+    this.beginDrawing();
+    fn();
+    this.endDrawing();
+  }
 }
 
 export class Font {
