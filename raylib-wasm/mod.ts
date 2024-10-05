@@ -1,6 +1,8 @@
 // @ts-types="./build/raylibjs.d.ts"
 import initModule, { type MainModule, type Vector2, type Texture2D as NativeTexture, type Rectangle, type NPatchInfo, Vector3, Vector4 } from './build/raylibjs.js';
 
+const zeroVec2 = { x: 0, y: 0 };
+
 class Context {
   private _rl: Raylib | undefined = undefined;
 
@@ -112,6 +114,10 @@ export class Raylib {
 
   drawText(text: string, pos: Vector2, fontSize: number, color: Color) {
     this.mod.DrawText(text, pos, fontSize, color);
+  }
+
+  drawTextPro(params: { font: string; text: string; position: Vector2; origin?: Vector2; rotation?: number; fontSize: number; spacing?: number; tint?: Color }) {
+    this.mod.DrawTextPro(params.font, params.text, params.position, params.origin ?? zeroVec2, params.rotation ?? 0, params.fontSize, params.spacing ?? 1, params.tint ?? this.WHITE);
   }
 
   isKeyDown(key: number) {

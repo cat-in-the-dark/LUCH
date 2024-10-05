@@ -7,6 +7,8 @@
   "files.associations": {
     "*.jslib": "javascript",
     "*.njk": "html",
-    "ios": "cpp"
+    "ios": "cpp",
+    "unordered_map": "cpp",
+    "string": "cpp"
   },
 }

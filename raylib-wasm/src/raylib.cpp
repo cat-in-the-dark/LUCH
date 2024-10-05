@@ -33,6 +33,21 @@ void DrawText_(const std::string& text, Vector2 pos, int fontSize, Color color) 
   return DrawText(text.c_str(), pos.x, pos.y, fontSize, color);
 }
 
+std::unordered_map<std::string, Font> fonts;
+
+void _LoadFont(const std::string& path) {
+  fonts.emplace(path, LoadFont(path.c_str()));
+}
+
+
+void _DrawTextPro(const std::string& path, const std::string& text, Vector2 position, Vector2 origin, float rotation, float fontSize, float spacing, Color tint) {
+  if (fonts.count(path) > 0) {
+    DrawTextPro(fonts.at(path), text.c_str(), position, origin, rotation, fontSize, spacing, tint);
+  } else {
+    TraceLog(LOG_ERROR, "Font %s is not loaded", path.c_str());
+  }
+}
+
 std::unordered_map<std::string, Sound> sounds;
 
 void _LoadSound(const std::string& path) {
@@ -42,6 +57,8 @@ void _LoadSound(const std::string& path) {
 void _PlaySound(const std::string& path) {
   if (sounds.count(path)) {
     PlaySound(sounds.at(path));
+  } else {
+    TraceLog(LOG_ERROR, "Sound %s is not loaded", path.c_str());
   }
 }
 
@@ -290,4 +307,5 @@ EMSCRIPTEN_BINDINGS(raylib) {
   function("GetColor", &GetColor);
 
   function("DrawText", &DrawText_);
+  function("DrawTextPro", &_DrawTextPro);
 }
