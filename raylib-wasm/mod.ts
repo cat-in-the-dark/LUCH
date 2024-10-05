@@ -134,7 +134,14 @@ export class Raylib {
 
   async loadFont(path: string): Promise<Font> {
     await addFile(this.mod, path, path);
+    this.mod.LoadFont(path);
     return new Font(path, this);
+  }
+
+  async loadSound(path: string): Promise<Sound> {
+    await addFile(this.mod, path, path);
+    this.mod.LoadSound(path);
+    return new Sound(path, this);
   }
 
   get LIGHTGRAY() { return Color.fromNative(this.mod.LIGHTGRAY); }
@@ -291,5 +298,13 @@ export class Font {
     tint?: Color;
   }) {
     this.rl.mod.DrawTextPro(this.path, params.text, params.position, params.origin ?? zeroVec2, params.rotation ?? 0, params.fontSize ?? 10, params.spacing ?? 1, params.tint ?? this.rl.WHITE);
+  }
+}
+
+export class Sound {
+  constructor(public readonly path: string, private readonly rl: Raylib) {}
+
+  play() {
+    this.rl.mod.PlaySound(this.path);
   }
 }
