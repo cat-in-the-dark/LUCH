@@ -301,7 +301,7 @@ export class RenderTexture {
   }
 
   endDrawing() {
-    this.rl.mod.EndDrawing();
+    this.rl.mod.EndTextureMode();
   }
 
   /**
