@@ -39,7 +39,6 @@ void _LoadFont(const std::string& path) {
   fonts.emplace(path, LoadFont(path.c_str()));
 }
 
-
 void _DrawTextPro(const std::string& path, const std::string& text, Vector2 position, Vector2 origin, float rotation, float fontSize, float spacing, Color tint) {
   if (fonts.count(path) > 0) {
     DrawTextPro(fonts.at(path), text.c_str(), position, origin, rotation, fontSize, spacing, tint);
@@ -60,6 +59,20 @@ void _PlaySound(const std::string& path) {
   } else {
     TraceLog(LOG_ERROR, "Sound %s is not loaded", path.c_str());
   }
+}
+
+static Rectangle GetPixelPerferLayout(int cw, int ch) {
+  float sw = GetScreenWidth();
+  float sh = GetScreenHeight();
+
+  auto scale = fmin(sw / cw, sh / ch);
+
+  return {
+      (sw - cw * scale) * 0.5f,
+      (sh - ch * scale) * 0.5f,
+      cw * scale,
+      ch * scale,
+  };
 }
 
 EMSCRIPTEN_BINDINGS(raylib) {
@@ -319,4 +332,8 @@ EMSCRIPTEN_BINDINGS(raylib) {
   function("UnloadRenderTexture", &UnloadRenderTexture);
   function("BeginTextureMode", &BeginTextureMode);
   function("EndTextureMode", &EndTextureMode);
+
+  function("GetPixelPerferLayout", &GetPixelPerferLayout);
+  function("BeginMode2D", &BeginMode2D);
+  function("EndMode2D", &EndMode2D);
 }

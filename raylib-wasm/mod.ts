@@ -1,5 +1,5 @@
 // @ts-types="./build/raylibjs.d.ts"
-import initModule, { type MainModule, type Vector2, type Texture2D as NativeTexture, type RenderTexture2D as NativeRenderTexture2D, type Rectangle, type NPatchInfo, Vector3, Vector4 } from './build/raylibjs.js';
+import initModule, { type MainModule, type Vector2, type Texture2D as NativeTexture, type RenderTexture2D as NativeRenderTexture2D, type Rectangle, type NPatchInfo, type Vector3, type Vector4 } from './build/raylibjs.js';
 
 const zeroVec2 = { x: 0, y: 0 };
 
@@ -332,5 +332,32 @@ export class Sound {
 
   play() {
     this.rl.mod.PlaySound(this.path);
+  }
+}
+
+export class Camera {
+  constructor(
+    public offset: Vector2,
+    public target: Vector2,
+    public rotation: number,
+    public zoom: number,
+  ) {}
+
+  beginMode2D() {
+    ctx.mod.BeginMode2D(this);
+  }
+
+  endMode2D() {
+    ctx.mod.EndMode2D();
+  }
+
+  /**
+   * Call fn between beginDrawing - endDrawing.
+   * @param fn
+   */
+  drawing(fn: () => unknown) {
+    this.beginMode2D();
+    fn();
+    this.endMode2D();
   }
 }
