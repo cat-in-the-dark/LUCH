@@ -290,7 +290,11 @@ export class Texture {
 }
 
 export class RenderTexture {
-  constructor(private readonly tex: NativeRenderTexture2D, private readonly rl: Raylib) {}
+  private jsTexture: Texture;
+
+  constructor(private readonly tex: NativeRenderTexture2D, private readonly rl: Raylib) {
+    this.jsTexture = new Texture(tex.texture, rl);
+  }
 
   beginDrawing() {
     this.rl.mod.BeginTextureMode(this.tex);
@@ -310,9 +314,12 @@ export class RenderTexture {
     this.endDrawing();
   }
 
-  setTextureFilter(filter: number) {
+  set textureFilter(filter: number) {
     this.rl.mod.SetTextureFilter(this.tex.texture, filter);
   }
+
+  get id() { return this.tex.id; }
+  get texture() { return this.jsTexture; }
 }
 
 export class Font {
