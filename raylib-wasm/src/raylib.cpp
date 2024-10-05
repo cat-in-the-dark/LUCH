@@ -237,6 +237,14 @@ EMSCRIPTEN_BINDINGS(raylib) {
       .value("RESIZE_ALL", MOUSE_CURSOR_RESIZE_ALL)
       .value("NOT_ALLOWED", MOUSE_CURSOR_NOT_ALLOWED);
 
+  enum_<TextureFilter>("TextureFilter")
+    .value("POINT", TEXTURE_FILTER_POINT)
+    .value("BILINEAR", TEXTURE_FILTER_BILINEAR)
+    .value("TRILINEAR", TEXTURE_FILTER_TRILINEAR)
+    .value("ANISOTROPIC_4X", TEXTURE_FILTER_ANISOTROPIC_4X)
+    .value("ANISOTROPIC_8X", TEXTURE_FILTER_ANISOTROPIC_8X)
+    .value("ANISOTROPIC_16X", TEXTURE_FILTER_ANISOTROPIC_16X);
+
   value_object<Texture>("Texture2D")
       .field("id", &Texture::id)
       .field("width", &Texture::width)
@@ -332,6 +340,7 @@ EMSCRIPTEN_BINDINGS(raylib) {
   function("UnloadRenderTexture", &UnloadRenderTexture);
   function("BeginTextureMode", &BeginTextureMode);
   function("EndTextureMode", &EndTextureMode);
+  function("SetTextureFilter", &SetTextureFilter);
 
   function("GetPixelPerferLayout", &GetPixelPerferLayout);
   function("BeginMode2D", &BeginMode2D);

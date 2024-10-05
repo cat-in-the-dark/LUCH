@@ -309,6 +309,10 @@ export class RenderTexture {
     fn();
     this.endDrawing();
   }
+
+  setTextureFilter(filter: number) {
+    this.rl.mod.SetTextureFilter(this.tex.texture, filter);
+  }
 }
 
 export class Font {
