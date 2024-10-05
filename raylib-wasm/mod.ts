@@ -116,10 +116,6 @@ export class Raylib {
     this.mod.DrawText(text, pos, fontSize, color);
   }
 
-  drawTextPro(params: { font: string; text: string; position: Vector2; origin?: Vector2; rotation?: number; fontSize: number; spacing?: number; tint?: Color }) {
-    this.mod.DrawTextPro(params.font, params.text, params.position, params.origin ?? zeroVec2, params.rotation ?? 0, params.fontSize, params.spacing ?? 1, params.tint ?? this.WHITE);
-  }
-
   isKeyDown(key: number) {
     return this.mod.IsKeyDown(key);
   }
@@ -134,6 +130,11 @@ export class Raylib {
   async loadTexture(path: string) {
     await addFile(this.mod, path, path);
     return new Texture(this.mod.LoadTexture(path), this);
+  }
+
+  async loadFont(path: string): Promise<Font> {
+    await addFile(this.mod, path, path);
+    return new Font(path, this);
   }
 
   get LIGHTGRAY() { return Color.fromNative(this.mod.LIGHTGRAY); }
@@ -275,4 +276,20 @@ export class Texture {
   get height() { return this.tex.height; }
   get mipmaps() { return this.tex.mipmaps; }
   get format() { return this.tex.format; }
+}
+
+export class Font {
+  constructor(public readonly path: string, private readonly rl: Raylib) {}
+
+  drawTextPro(params: {
+    text: string;
+    position: Vector2;
+    origin?: Vector2;
+    rotation?: number;
+    fontSize: number;
+    spacing?: number;
+    tint?: Color;
+  }) {
+    this.rl.mod.DrawTextPro(this.path, params.text, params.position, params.origin ?? zeroVec2, params.rotation ?? 0, params.fontSize ?? 10, params.spacing ?? 1, params.tint ?? this.rl.WHITE);
+  }
 }
