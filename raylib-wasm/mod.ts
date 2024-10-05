@@ -39,7 +39,10 @@ async function addFile(mod: MainModule, filename: string, target?: string) {
   for (const d of p) {
     dir = dir + '/' + d;
     try {
-      mod.FS.mkdir(dir, 0o777);
+      // skipping already exists folders
+      if (!mod.FS.analyzePath(dir, true).exists) {
+        mod.FS.mkdir(dir, 0o777);
+      }
     }
     catch (e) {
       console.error('Faield to add file', e);
