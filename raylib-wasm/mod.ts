@@ -116,6 +116,14 @@ export class Raylib {
     this.mod.DrawText(text, pos, fontSize, color);
   }
 
+  drawCircle(pos: Vector2, radius: number, color: Color) {
+    this.mod.DrawCircle(pos, radius, color);
+  }
+
+  drawRectangle(pos: Vector2, size: Vector2, color: Color) {
+    this.mod.DrawRectangle(pos, size, color);
+  }
+
   isKeyDown(key: number) {
     return this.mod.IsKeyDown(key);
   }

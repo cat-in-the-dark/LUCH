@@ -392,4 +392,7 @@ EMSCRIPTEN_BINDINGS(raylib) {
   function("GetPixelPerferLayout", &GetPixelPerferLayout);
   function("BeginMode2D", &BeginMode2D);
   function("EndMode2D", &EndMode2D);
+  
+  function("DrawRectangle", &DrawRectangleV);
+  function("DrawCircle", &DrawCircleV);
 }
